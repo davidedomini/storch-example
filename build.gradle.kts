@@ -35,8 +35,16 @@ repositories {
 dependencies {
     implementation("org.scala-lang:scala3-library_3:3.3.1")
     implementation("dev.storch:core_3:0.0-05078a8-SNAPSHOT")
-    implementation("org.bytedeco:pytorch-platform-gpu:2.0.1-1.5.10-SNAPSHOT")
-    implementation("org.bytedeco:cuda-platform-redist:12.1-8.9-1.5.10-SNAPSHOT")
+    implementation(group = "org.bytedeco",
+        name = "pytorch-platform",
+        version = "2.0.1-1.5.10-SNAPSHOT",
+        classifier = "linux-x86_64")
+    implementation(group = "org.bytedeco",
+        name = "cuda-platform-redist",
+        version = "12.1-8.9-1.5.10-SNAPSHOT",
+        classifier = "linux-x86_64")
+    //implementation("org.bytedeco:pytorch-platform:2.0.1-1.5.10-SNAPSHOT")
+    //implementation("org.bytedeco:cuda-platform-redist:12.1-8.9-1.5.10-SNAPSHOT")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
