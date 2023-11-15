@@ -52,3 +52,9 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register<JavaExec>("runBasicExample"){
+    group = "Storch examples"
+    mainClass.set("it.unibo.BasicExample")
+    classpath = sourceSets["main"].runtimeClasspath
+}
