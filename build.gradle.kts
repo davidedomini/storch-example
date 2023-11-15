@@ -1,3 +1,5 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 plugins {
     id("java")
     id("scala")
@@ -23,16 +25,18 @@ sourceSets {
 repositories {
     mavenCentral()
     maven {
+        url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+    }
+    maven {
         url = uri("https://oss.sonatype.org/content/repositories/snapshots")
     }
-
 }
 
 dependencies {
-
-    //implementation("dev.jeka:kotlin-plugin:master-SNAPSHOT")
     implementation("org.scala-lang:scala3-library_3:3.3.1")
-    implementation("dev.storch:core:0.0-05078a8-SNAPSHOT")
+    implementation("dev.storch:core_3:0.0-05078a8-SNAPSHOT")
+    implementation("org.bytedeco:pytorch-platform-gpu:2.0.1-1.5.10-SNAPSHOT")
+    implementation("org.bytedeco:cuda-platform-redist:12.1-8.9-1.5.10-SNAPSHOT")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
