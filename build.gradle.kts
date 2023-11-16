@@ -32,17 +32,33 @@ repositories {
     }
 }
 
+val osName = System.getProperty("os.name")!!
+val currentPlatform = when {
+    osName.matches(Regex(".*Mac.*")) -> "macosx-x86_64"
+    osName.matches(Regex(".*Linux.*")) -> "linux-x86_64"
+    osName.matches(Regex(".*Windows.*")) -> "windows-x86_64"
+    else -> ""
+}
+
 dependencies {
     implementation("org.scala-lang:scala3-library_3:3.3.1")
     implementation("dev.storch:core_3:0.0-05078a8-SNAPSHOT")
     implementation(group = "org.bytedeco",
-        name = "pytorch-platform",
-        version = "2.0.1-1.5.10-SNAPSHOT",
-        classifier = "linux-x86_64")
+        name = "pytorch",
+        version = "2.0.1-1.5.10-20230612.164657-2",
+        classifier = currentPlatform)
     implementation(group = "org.bytedeco",
-        name = "cuda-platform-redist",
-        version = "12.1-8.9-1.5.10-SNAPSHOT",
-        classifier = "linux-x86_64")
+        name = "openblas",
+        version = "0.3.23-1.5.10-SNAPSHOT",
+        classifier = currentPlatform)
+    implementation(group = "org.bytedeco",
+        name = "cuda",
+        version = "12.3-8.9-1.5.10-20231025.123723-1",
+        classifier = currentPlatform)
+    implementation(group = "org.bytedeco",
+        name = "cuda",
+        version = "12.3-8.9-1.5.10-20231025.123723-1",
+        classifier = "${currentPlatform}-redist")
     //implementation("org.bytedeco:pytorch-platform:2.0.1-1.5.10-SNAPSHOT")
     //implementation("org.bytedeco:cuda-platform-redist:12.1-8.9-1.5.10-SNAPSHOT")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
