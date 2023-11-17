@@ -47,7 +47,6 @@ dependencies {
         name = "pytorch",
         version = "2.0.1-1.5.10-20230612.164657-2",
         classifier = currentPlatform)
-
     implementation(group = "org.bytedeco",
         name = "openblas",
         version = "0.3.23-1.5.10-SNAPSHOT",
