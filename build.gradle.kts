@@ -47,30 +47,25 @@ dependencies {
         name = "pytorch",
         version = "2.0.1-1.5.10-20230612.164657-2",
         classifier = currentPlatform)
+
     implementation(group = "org.bytedeco",
         name = "openblas",
         version = "0.3.23-1.5.10-SNAPSHOT",
         classifier = currentPlatform)
-    implementation(group = "org.bytedeco",
-        name = "cuda",
-        version = "12.3-8.9-1.5.10-20231025.123723-1",
-        classifier = currentPlatform)
-    implementation(group = "org.bytedeco",
-        name = "cuda",
-        version = "12.3-8.9-1.5.10-20231025.123723-1",
-        classifier = "${currentPlatform}-redist")
-    //implementation("org.bytedeco:pytorch-platform:2.0.1-1.5.10-SNAPSHOT")
-    //implementation("org.bytedeco:cuda-platform-redist:12.1-8.9-1.5.10-SNAPSHOT")
+    if(currentPlatform.matches(Regex(".*windows.*|.*linux.*"))){
+        implementation(group = "org.bytedeco",
+            name = "cuda",
+            version = "12.3-8.9-1.5.10-20231025.123723-1",
+            classifier = currentPlatform)
+        implementation(group = "org.bytedeco",
+            name = "cuda",
+            version = "12.3-8.9-1.5.10-20231025.123723-1",
+            classifier = "${currentPlatform}-redist")
+    }
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks.test {
     useJUnitPlatform()
-}
-
-tasks.register<JavaExec>("runBasicExample"){
-    group = "Storch examples"
-    mainClass.set("it.unibo.BasicExample")
-    classpath = sourceSets["main"].runtimeClasspath
 }
