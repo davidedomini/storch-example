@@ -43,14 +43,23 @@ val currentPlatform = when {
 dependencies {
     implementation("org.scala-lang:scala3-library_3:3.3.1")
     implementation("dev.storch:core_3:0.0-05078a8-SNAPSHOT")
+
     implementation(group = "org.bytedeco",
         name = "pytorch",
         version = "2.0.1-1.5.10-20230612.164657-2",
         classifier = currentPlatform)
     implementation(group = "org.bytedeco",
+        name = "pytorch-platform",
+        version = "2.1.0-1.5.10-SNAPSHOT")
+
+    implementation(group = "org.bytedeco",
         name = "openblas",
         version = "0.3.23-1.5.10-SNAPSHOT",
         classifier = currentPlatform)
+    implementation(group = "org.bytedeco",
+        name = "openblas-platform",
+        version = "0.3.24-1.5.10-SNAPSHOT")
+
     if(currentPlatform.matches(Regex(".*windows.*|.*linux.*"))){
         implementation(group = "org.bytedeco",
             name = "cuda",
@@ -61,6 +70,7 @@ dependencies {
             version = "12.3-8.9-1.5.10-20231025.123723-1",
             classifier = "${currentPlatform}-redist")
     }
+
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
@@ -68,3 +78,29 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+tasks.register<JavaExec>("runCustomNN"){
+    mainClass.set("it.unibo.CustomNN")
+    jvmArgs(
+        "-XX:+CreateCoredumpOnCrash"
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("runBasic"){
+    mainClass.set("it.unibo.BasicExample")
+    jvmArgs(
+        "-XX:+CreateCoredumpOnCrash"
+    )
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+
+/*
+tasks.withType<JavaExec> {
+    jvmArgs(
+        "-XX:+CreateCoredumpOnCrash"
+    )
+    println("HEY ${name}")
+}
+*/
