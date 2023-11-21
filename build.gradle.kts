@@ -1,5 +1,3 @@
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-
 plugins {
     id("java")
     id("scala")
@@ -80,7 +78,7 @@ tasks.test {
 }
 
 tasks.register<JavaExec>("runCustomNN"){
-    mainClass.set("it.unibo.CustomNN")
+    mainClass.set("it.unibo.simple.CustomNN")
     jvmArgs(
         "-XX:+CreateCoredumpOnCrash"
     )
@@ -88,19 +86,9 @@ tasks.register<JavaExec>("runCustomNN"){
 }
 
 tasks.register<JavaExec>("runBasic"){
-    mainClass.set("it.unibo.BasicExample")
+    mainClass.set("it.unibo.simple.BasicExample")
     jvmArgs(
         "-XX:+CreateCoredumpOnCrash"
     )
-    classpath = sourceSets["main"].runtimeClasspath
+    classpath = sourceSets["main"].runtimeClasspath + sourceSets["main"].compileClasspath
 }
-
-
-/*
-tasks.withType<JavaExec> {
-    jvmArgs(
-        "-XX:+CreateCoredumpOnCrash"
-    )
-    println("HEY ${name}")
-}
-*/

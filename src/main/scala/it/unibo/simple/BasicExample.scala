@@ -1,4 +1,4 @@
-package it.unibo
+package it.unibo.simple
 
 object BasicExample extends App {
 
