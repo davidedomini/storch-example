@@ -1,7 +1,6 @@
 package it.unibo.simple
 
 import torch.*
-import torch.nn.functional as F
 
 class NeuralNetwork extends nn.Module:
   val flatten = nn.Flatten()
