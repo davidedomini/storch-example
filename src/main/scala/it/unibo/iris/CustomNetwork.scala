@@ -7,7 +7,6 @@ import torch.*
 import scala.util.Using
 
 class CustomNetwork extends nn.Module {
-  val flatten = nn.Flatten()
   val linearReluStack = register(nn.Sequential(
     nn.Linear(4, 16),
     nn.ReLU(),
@@ -17,8 +16,7 @@ class CustomNetwork extends nn.Module {
   ))
 
   def apply(x: Tensor[Float32]) =
-    val flattened = flatten(x)
-    val logits = linearReluStack(flattened)
+    val logits = linearReluStack(x)
     nn.functional.softmax(logits, 1)()
 }
 
